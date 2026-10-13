@@ -1,0 +1,81 @@
+FOOD TRACKER - ANDROID DEVELOPMENT AND MANUAL TESTING
+
+This frontend is a native Java Android app (Android 8.0/API 26 or newer).
+The GUI is a prototype: searching, adding foods and changing goals are not
+connected to tracking logic or the SQLite database yet. The initial goal is
+2,000 kcal with zero food logged. Snacks can eventually contain multiple entries.
+
+ANDROID STUDIO (OPTIONAL)
+Install Android Studio separately if you want its layout editor and debugger.
+1. Open the frontend directory as a project in Android Studio.
+2. Allow Gradle synchronization. Use JDK 17, 21 or 25 as the Gradle JDK under Settings >
+   Build, Execution, Deployment > Build Tools > Gradle if necessary.
+3. Open app/src/main/res/layout/activity_tracker.xml and choose Design or Split
+   to preview the screen. Meal titles are assigned by TrackerGUI when running.
+4. Choose FoodTracker_Phone in the device selector and click Run.
+   Device Manager can also create and launch additional virtual phones.
+
+VS CODE OR POWERSHELL
+In VS Code, use Terminal > Run Task > Android: run on emulator or phone.
+Android: build APK builds the installable debug package.
+Android: build and lint checks the app's source and Android resources.
+
+From a PowerShell terminal in frontend:
+    powershell -NoProfile -ExecutionPolicy Bypass -File .\android.ps1 Doctor
+    powershell -NoProfile -ExecutionPolicy Bypass -File .\android.ps1 Build
+    powershell -NoProfile -ExecutionPolicy Bypass -File .\android.ps1 Run
+
+Run builds the app, starts the virtual phone when no device is connected, waits
+for boot, installs the APK, and opens the app. The emulator is a separate window;
+VS Code is used for editing and tasks. Android Studio supplies visual previews
+and Android-specific debugging.
+
+PHYSICAL ANDROID PHONE
+Enable Developer options and USB debugging on your phone. Connect it to this PC
+and approve the phone's debugging prompt. Run the Doctor action to list devices,
+then Run to install and launch the app. Some phones need the manufacturer's
+Windows USB driver. If multiple devices are connected, select one explicitly:
+    powershell -ExecutionPolicy Bypass -File .\android.ps1 Run -DeviceSerial SERIAL
+
+Alternatively, transfer app/build/outputs/apk/debug/app-debug.apk to the phone
+and install it, granting permission to install from that transfer app if asked.
+This is a debug APK for testing; publication requires a signed release build.
+
+MANUAL CHECKLIST
+- Launch the app: calorie total is 0 / 2,000 kcal, with zero grams for each macro.
+- Scroll: Breakfast, Lunch, Dinner and Snacks each have an empty-state card.
+- Tap the search field: keyboard appears and the field remains visible.
+- Type text, rotate the phone, and confirm Android restores the search text.
+- Rotate to landscape: content scrolls and stays clear of system bars.
+- Increase system font size: text wraps without hiding the meal controls.
+- Search and Add food buttons are visible placeholders; totals do not change.
+
+VERIFICATION ON THIS PC (OCTOBER 12, 2026)
+The debug APK build and Android lint passed (zero errors, four advisory warnings).
+The APK installed and launched on FoodTracker_Phone using Windows Hypervisor
+Platform acceleration. Portrait rendering, meal scrolling, landscape rotation,
+search text restoration, larger text (160%), and the on-screen keyboard were
+checked. Captures are in app/build/qa (generated files, ignored by Git).
+The virtual phone was returned to normal font size and portrait orientation,
+with the app open. Its on-screen keyboard is enabled alongside the PC keyboard.
+Android Studio is optional and was not installed for this command-line setup.
+
+TOOLS AND RECOVERY
+SDK location: %LOCALAPPDATA%\Android\Sdk
+Java: the existing JDK 25, a JDK 17/21 installation, or Android Studio's runtime
+Virtual phone: FoodTracker_Phone (Android API 36, standard Android, x86_64)
+Build: Android Gradle plugin 9.0.1 with Gradle 9.1.0.
+
+On a new Windows PC, install Android Studio or a JDK (17, 21 or 25), then run:
+    powershell -NoProfile -ExecutionPolicy Bypass -File .\android.ps1 Setup
+Setup downloads the official SDK tools and packages, displays/accepts their
+licenses, creates the virtual phone, and generates the official Gradle wrapper.
+Downloads require an internet connection and several GB of free disk space.
+Doctor reports emulator acceleration; Windows Hypervisor Platform and firmware
+virtualization may need to be enabled if acceleration is unavailable.
+
+Official documentation:
+https://developer.android.com/studio
+https://developer.android.com/studio/run
+https://developer.android.com/tools
+https://developer.android.com/build/releases/agp-9-0-0-release-notes

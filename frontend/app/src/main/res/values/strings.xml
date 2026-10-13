@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Food Tracker</string>
+    <string name="today">Today’s Calories and Nutrition</string>
+    <string name="subtitle">Account for calories and count on your progress..</string>
+    <string name="search_hint">Search for a food</string>
+    <string name="search">Search</string>
+    <string name="daily_calories">Daily calories</string>
+    <string name="calorie_total">0 / 2,000 kcal</string>
+    <string name="calorie_remaining">2,000 kcal remaining</string>
+    <string name="progress_description">0 of 2,000 daily calories logged</string>
+    <string name="protein">Protein\n0 g</string>
+    <string name="carbs">Carbs\n0 g</string>
+    <string name="fat">Fat\n0 g</string>
+    <string name="meals">Your meals</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="snacks">Snacks</string>
+    <string name="meal_calories">0 kcal</string>
+    <string name="empty_meal">No food logged yet</string>
+    <string name="empty_detail">Food, servings, and macros will appear here.</string>
+    <string name="add_food">+ Add food</string>
+    <string name="add_food_to">Add food to %1$s</string>
+</resources>
