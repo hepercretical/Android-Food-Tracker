@@ -22,4 +22,27 @@
     <string name="empty_detail">Food, servings, and macros will appear here.</string>
     <string name="add_food">+ Add food</string>
     <string name="add_food_to">Add food to %1$s</string>
+    <string name="enter_food">Enter a food to search</string>
+    <string name="no_foods">No foods with complete calorie and macro data found. Try another name.</string>
+    <string name="choose_food">Choose a food (per 100 g)</string>
+    <string name="food_result">%1$s\n%2$.1f kcal / 100 g</string>
+    <string name="food_nutrients">Per 100 g: %1$.1f kcal\nProtein %2$.1f g · Carbs %3$.1f g · Fat %4$.1f g</string>
+    <string name="amount_grams">Amount in grams</string>
+    <string name="invalid_grams">Enter an amount greater than 0, up to 10,000 g</string>
+    <string name="meal_label">Meal</string>
+    <string name="log_food">Log food</string>
+    <string name="remove">Remove</string>
+    <string name="remove_food">Remove logged food?</string>
+    <string name="remove_confirmation">Remove %1$s from today\'s log?</string>
+    <string name="remove_named_food">Remove %1$s</string>
+    <string name="database_error">Unable to load or save food. Please try again.</string>
+    <string name="calories_value">%1$,d / %2$,d kcal</string>
+    <string name="calories_left">%1$,d kcal remaining</string>
+    <string name="calories_over">%1$,d kcal over goal</string>
+    <string name="progress_value">%1$,d of %2$,d daily calories logged</string>
+    <string name="protein_value">Protein\n%1$.1f g</string>
+    <string name="carbs_value">Carbs\n%1$.1f g</string>
+    <string name="fat_value">Fat\n%1$.1f g</string>
+    <string name="meal_calories_value">%1$.1f kcal</string>
+    <string name="entry_details">%1$s\n%2$.1f g · %3$.1f kcal\nProtein %4$.1f g · Carbs %5$.1f g · Fat %6$.1f g</string>
 </resources>

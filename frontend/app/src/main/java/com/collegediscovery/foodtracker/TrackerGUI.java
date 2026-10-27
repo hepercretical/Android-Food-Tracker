@@ -2,17 +2,17 @@ package com.collegediscovery.foodtracker;
 
 import android.app.Activity;
 import android.view.View;
+import java.util.List;
+import java.util.function.Consumer;
 
-/** Assembles the screen; each section owns its own view bindings. */
+/** Assembles view bindings; the controller owns application behavior. */
 public final class TrackerGUI {
     private final Activity activity;
     private SearchGUI search;
     private DailyNutritionGUI dailyNutrition;
     private MealsGUI meals;
 
-    public TrackerGUI(Activity activity) {
-        this.activity = activity;
-    }
+    public TrackerGUI(Activity activity) { this.activity = activity; }
 
     public void show() {
         activity.setContentView(R.layout.activity_tracker);
@@ -23,16 +23,12 @@ public final class TrackerGUI {
         WindowInsetsGUI.apply(activity, root);
     }
 
-    /** Section bindings are available after show() has inflated the layout. */
-    public SearchGUI getSearch() {
-        return search;
+    public void render(NutritionSummary summary, List<FoodLogEntry> entries, Consumer<FoodLogEntry> onRemove) {
+        dailyNutrition.render(summary);
+        for (Meal meal : Meal.values()) meals.get(meal).render(entries, meal, onRemove);
     }
 
-    public DailyNutritionGUI getDailyNutrition() {
-        return dailyNutrition;
-    }
-
-    public MealsGUI getMeals() {
-        return meals;
-    }
+    public SearchGUI getSearch() { return search; }
+    public DailyNutritionGUI getDailyNutrition() { return dailyNutrition; }
+    public MealsGUI getMeals() { return meals; }
 }

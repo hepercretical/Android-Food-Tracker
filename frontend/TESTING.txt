@@ -1,9 +1,11 @@
 FOOD TRACKER - ANDROID DEVELOPMENT AND MANUAL TESTING
 
 This frontend is a native Java Android app (Android 8.0/API 26 or newer).
-The GUI is a prototype: searching, adding foods and changing goals are not
-connected to tracking logic or the SQLite database yet. The initial goal is
-2,000 kcal with zero food logged. Snacks can eventually contain multiple entries.
+The Java GUI is connected to the bundled USDA SQLite catalog and a persistent
+on-device food log. Search foods, enter an amount in grams, select a meal, and
+log calories, protein, carbohydrates, and fat. The reference goal is 2,000 kcal.
+Each meal supports multiple entries and confirmed removal. Daily totals use
+the phone's local date and refresh on resume and at midnight.
 
 ANDROID STUDIO (OPTIONAL)
 Install Android Studio separately if you want its layout editor and debugger.
@@ -42,13 +44,42 @@ and install it, granting permission to install from that transfer app if asked.
 This is a debug APK for testing; publication requires a signed release build.
 
 MANUAL CHECKLIST
-- Launch the app: calorie total is 0 / 2,000 kcal, with zero grams for each macro.
-- Scroll: Breakfast, Lunch, Dinner and Snacks each have an empty-state card.
+- Launch on a fresh install: calorie total is 0 / 2,000 kcal with zero macros.
+- Search for "apples, fuji" and select the result (58.2 kcal per 100 g).
+- Enter 150 grams, choose Lunch, and Log food: expect 87 kcal (rounded),
+  protein 0.2 g, carbs 23.6 g, fat 0.2 g. Lunch shows the food and 87.3 kcal.
+- Add the same food at 50 grams to Snacks: daily total becomes 116 kcal,
+  protein 0.3 g, carbs 31.4 g, fat 0.3 g.
+- Use a meal card's Add food button to search directly for that meal.
+- Try an empty search, a food name that does not exist, and zero grams.
+- Cancel search/portion/removal dialogs: no entries or totals should change.
+- Remove one entry and confirm meal and daily totals decrease correctly.
+- Close/reopen and rotate the app: saved foods and totals must persist.
 - Tap the search field: keyboard appears and the field remains visible.
 - Type text, rotate the phone, and confirm Android restores the search text.
 - Rotate to landscape: content scrolls and stays clear of system bars.
 - Increase system font size: text wraps without hiding the meal controls.
-- Search and Add food buttons are visible placeholders; totals do not change.
+- Confirm meals without entries show the empty state and 0 kcal.
+
+AUTOMATED SQLITE CHECKS (CONNECTED EMULATOR)
+From frontend, with ANDROID_HOME and GRADLE_USER_HOME configured:
+    .\gradlew.bat assembleDebug assembleDebugAndroidTest lintDebug
+    adb install -r app\build\outputs\apk\debug\app-debug.apk
+    adb install -r app\build\outputs\apk\androidTest\debug\app-debug-androidTest.apk
+    adb shell am instrument -w com.collegediscovery.foodtracker.test/com.collegediscovery.foodtracker.RepositoryTestRunner
+The dependency-free test runner verifies real USDA search/macros, calorie-unit
+selection, portion scaling, date filtering, invalid inputs, persistence,
+removal, and migration from the first food-log schema. It uses a separate cache
+database and never changes the application's user log. Look for
+ALL REPOSITORY CHECKS PASSED.
+
+VERIFICATION ON THIS PC (OCTOBER 26, 2026)
+The connected integration checks passed against the real bundled SQLite data.
+VS Code's Android: run on emulator or phone task built and installed the APK
+and launched FoodTracker_Phone. Manual search for Fuji apples returned 58.2
+kcal per 100 g, and logging 100 g updated the breakfast card and daily totals
+to 58 kcal, protein 0.1 g, carbs 15.7 g, and fat 0.2 g (display rounding).
+One sample breakfast entry is left in the app for manual testing.
 
 VERIFICATION ON THIS PC (OCTOBER 12, 2026)
 The debug APK build and Android lint passed (zero errors, four advisory warnings).

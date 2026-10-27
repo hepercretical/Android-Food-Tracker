@@ -20,6 +20,16 @@ public final class MealsGUI {
         return breakfast;
     }
 
+    public MealGUI get(Meal meal) {
+        switch (meal) {
+            case BREAKFAST: return breakfast;
+            case LUNCH: return lunch;
+            case DINNER: return dinner;
+            case SNACKS: return snacks;
+            default: throw new IllegalArgumentException("Unknown meal");
+        }
+    }
+
     public MealGUI getLunch() {
         return lunch;
     }

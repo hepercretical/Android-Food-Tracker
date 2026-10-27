@@ -12,10 +12,14 @@ android {
         targetSdk 36
         versionCode 1
         versionName '0.1'
+        testInstrumentationRunner 'com.collegediscovery.foodtracker.RepositoryTestRunner'
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    // Package the backend source directly; keep one authoritative database file.
+    sourceSets.main.assets.srcDir '../../backend'
 }

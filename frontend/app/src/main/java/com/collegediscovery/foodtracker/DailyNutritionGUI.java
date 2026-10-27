@@ -26,6 +26,19 @@ public final class DailyNutritionGUI {
         return calorieProgress;
     }
 
+    public void render(NutritionSummary summary) {
+        android.content.Context context = calorieTotal.getContext();
+        int calories = (int) Math.round(summary.calories);
+        int goal = 2000;
+        calorieProgress.setProgress(Math.min(calories, goal));
+        calorieProgress.setContentDescription(context.getString(R.string.progress_value, calories, goal));
+        calorieTotal.setText(context.getString(R.string.calories_value, calories, goal));
+        calorieRemaining.setText(context.getString(calories > goal ? R.string.calories_over : R.string.calories_left, Math.abs(goal - calories)));
+        protein.setText(context.getString(R.string.protein_value, summary.protein));
+        carbs.setText(context.getString(R.string.carbs_value, summary.carbs));
+        fat.setText(context.getString(R.string.fat_value, summary.fat));
+    }
+
     public TextView getCalorieTotal() {
         return calorieTotal;
     }

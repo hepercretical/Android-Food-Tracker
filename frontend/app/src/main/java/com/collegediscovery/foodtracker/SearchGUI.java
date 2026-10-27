@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-/** Owns the food-search controls. Search behavior can be added here later. */
+/** Owns food-search controls; the controller supplies behavior. */
 public final class SearchGUI {
     private final EditText searchField;
     private final Button searchButton;

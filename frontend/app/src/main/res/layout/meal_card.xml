@@ -6,6 +6,12 @@
     <TextView android:id="@+id/meal_calories" style="@style/Body" android:text="@string/meal_calories" android:layout_marginTop="4dp" />
     <TextView android:id="@+id/meal_empty_message" style="@style/Body" android:text="@string/empty_meal" android:textColor="@color/text" android:textSize="16sp" android:layout_marginTop="16dp" />
     <TextView android:id="@+id/meal_empty_detail" style="@style/Body" android:text="@string/empty_detail" android:layout_marginTop="4dp" />
+    <LinearLayout
+        android:id="@+id/meal_entries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" />
     <Button
         android:id="@+id/add_food"
         android:layout_width="match_parent"

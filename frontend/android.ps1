@@ -8,6 +8,9 @@ $ErrorActionPreference = 'Stop'
 $sdk = Join-Path $env:LOCALAPPDATA 'Android\Sdk'
 $env:ANDROID_HOME = $sdk
 $env:ANDROID_SDK_ROOT = $sdk
+if (-not $env:GRADLE_USER_HOME) {
+    $env:GRADLE_USER_HOME = Join-Path $env:USERPROFILE '.gradle'
+}
 $avdName = 'FoodTracker_Phone'
 $image = 'system-images;android-36;default;x86_64'
 

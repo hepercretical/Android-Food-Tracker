@@ -1,5 +1,6 @@
 # Java / Android build outputs and caches (at any project depth)
 .gradle/
+**/.gradle-cache/
 .kotlin/
 build/
 target/
