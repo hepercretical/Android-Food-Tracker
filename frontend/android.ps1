@@ -31,6 +31,16 @@ $avdManager = Join-Path $sdk 'cmdline-tools\latest\bin\avdmanager.bat'
 $adb = Join-Path $sdk 'platform-tools\adb.exe'
 $emulator = Join-Path $sdk 'emulator\emulator.exe'
 
+function Resolve-AvdName {
+    $available = @(& $emulator -list-avds | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+    if ($available -contains $avdName) { return $avdName }
+    if ($available.Count -gt 0) {
+        Write-Host "AVD '$avdName' is unavailable; using installed AVD '$($available[0])'."
+        return $available[0]
+    }
+    throw 'No Android Virtual Device is installed. Run .\android.ps1 Setup first.'
+}
+
 function Assert-Success([string]$step) {
     if ($LASTEXITCODE -ne 0) { throw "$step failed (exit $LASTEXITCODE)." }
 }
@@ -121,6 +131,7 @@ if ($Action -eq 'Check') { Invoke-Build -Tasks @('assembleDebug', 'lintDebug'); 
 
 if (-not (Test-Path $emulator) -or -not (Test-Path $adb)) { throw 'Run .\android.ps1 Setup first.' }
 if ($Action -eq 'Emulator') {
+    $avdName = Resolve-AvdName
     Start-Process -FilePath $emulator -ArgumentList @('-avd', $avdName) -WindowStyle Normal
     exit
 }
@@ -131,6 +142,7 @@ if (-not $DeviceSerial) {
     if ($devices.Count -gt 1) { throw 'Multiple devices connected. Run with -DeviceSerial <serial> (see adb devices).' }
     if ($devices.Count -eq 1) { $DeviceSerial = $devices[0] }
     else {
+        $avdName = Resolve-AvdName
         Start-Process -FilePath $emulator -ArgumentList @('-avd', $avdName) -WindowStyle Normal
     }
 }
